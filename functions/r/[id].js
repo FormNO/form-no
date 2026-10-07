@@ -14,6 +14,8 @@ const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+// Rendered on the server, so UTC. The script at the foot of the page rewrites
+// it to the reader's own clock, which is what the wall already shows.
 const when = (t) =>
   new Date(t * 1000).toLocaleString("en-GB", {
     weekday: "long",
@@ -23,7 +25,21 @@ const when = (t) =>
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+    timeZone: "UTC",
   });
+
+const LOCALISE = `<script>
+(function(){
+  var f={long:{weekday:"long",day:"numeric",month:"long",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false},
+         short:{day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false}};
+  var n=document.querySelectorAll("time[datetime]");
+  for(var i=0;i<n.length;i++){
+    var d=new Date(n[i].getAttribute("datetime"));
+    if(isNaN(d.getTime()))continue;
+    try{n[i].textContent=d.toLocaleString("en-GB",f[n[i].getAttribute("data-fmt")]||f.short);}catch(e){}
+  }
+})();
+</script>`;
 
 const STYLE = `
 :root{--paper:#d6cbb0;--card:#e8e1cb;--ink:#16150f;--stamp:#b32218;--blue:#24356b;--rule:rgba(22,21,15,.28)}
@@ -126,7 +142,7 @@ export async function onRequestGet({ params, env }) {
   <section class="filing">
     <div class="meta">
       <span><span class="seq">#${String(entry.seq).padStart(4, "0")}</span> &nbsp;<a class="who" href="/u/${encodeURIComponent(entry.u)}">@${esc(entry.u)}</a></span>
-      <span>${esc(when(entry.t))}</span>
+      <time datetime="${new Date(entry.t * 1000).toISOString()}" data-fmt="long">${esc(when(entry.t))}</time>
     </div>
     <blockquote>${esc(entry.m)}</blockquote>
     <div class="counts">Signed by ${counts.s} &middot; Objected by ${counts.n}</div>
@@ -135,6 +151,7 @@ export async function onRequestGet({ params, env }) {
 
   <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed. This one was written by a visitor signed in with X. This project did not write it, does not endorse it, and takes no responsibility for its content. <a href="/">Form N-O</a></p>
 </main>
+${LOCALISE}
 </body>
 </html>`;
 

@@ -213,7 +213,7 @@ button:disabled{cursor:not-allowed;opacity:.42}
   </div>
   <div id="wall"><div class="loading">Reading the chain…</div></div>
 
-  <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed; one marked queued is on its way. Messages are written by visitors signed in with X. This project did not write them, does not endorse them, and takes no responsibility for their content. Signatures are counted off-chain, one per account per filing. <a id="contractLink" href="#" target="_blank" rel="noopener">View contract</a> · <a href="https://x.com/formno_" target="_blank" rel="noopener">@FormNO_</a></p>
+  <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed; one marked queued is on its way. Messages are written by visitors signed in with X. This project did not write them, does not endorse them, and takes no responsibility for their content. Signatures are counted off-chain, one per account per filing. <span id="contractWrap"><a id="contractLink" href="#" target="_blank" rel="noopener">View contract</a> · </span><a href="https://x.com/formno_" target="_blank" rel="noopener">@FormNO_</a></p>
 
 </main>
 
@@ -476,11 +476,18 @@ async function load(){
     handle   = d.username || null;
     avatar   = d.avatar || null;
 
-    if (d.contract) $("contractLink").href = EXPLORER + "/address/" + d.contract;
-    els.total.textContent = String(typeof d.total === "number" ? d.total : entries.length);
+    if (d.contract) {
+      $("contractLink").href = EXPLORER + "/address/" + d.contract;
+    } else {
+      $("contractWrap").style.display = "none";
+    }
+
+    const count = typeof d.total === "number" ? d.total : entries.length;
+    els.total.textContent = String(count);
+    const noun = count === 1 ? "rejection filed" : "rejections filed";
     $("totalLabel").textContent = d.pending
-      ? "rejections filed \u00b7 " + d.pending + " waiting for the chain"
-      : "rejections filed to date";
+      ? noun + " \u00b7 " + d.pending + " waiting for the chain"
+      : noun + " to date";
 
     paintAccount();
     paint();

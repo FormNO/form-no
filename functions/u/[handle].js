@@ -17,6 +17,8 @@ const esc = (s) =>
     .replace(/>/g, "&gt;")
     .replace(/"/g, "&quot;");
 
+// Rendered on the server, so UTC. The script at the foot of the page rewrites
+// it to the reader's own clock, which is what the wall already shows.
 const when = (t) =>
   new Date(t * 1000).toLocaleString("en-GB", {
     day: "2-digit",
@@ -25,7 +27,20 @@ const when = (t) =>
     hour: "2-digit",
     minute: "2-digit",
     hour12: false,
+    timeZone: "UTC",
   });
+
+const LOCALISE = `<script>
+(function(){
+  var f={day:"2-digit",month:"short",year:"numeric",hour:"2-digit",minute:"2-digit",hour12:false};
+  var n=document.querySelectorAll("time[datetime]");
+  for(var i=0;i<n.length;i++){
+    var d=new Date(n[i].getAttribute("datetime"));
+    if(isNaN(d.getTime()))continue;
+    try{n[i].textContent=d.toLocaleString("en-GB",f);}catch(e){}
+  }
+})();
+</script>`;
 
 const STYLE = `
 :root{--paper:#d6cbb0;--card:#e8e1cb;--ink:#16150f;--stamp:#b32218;--blue:#24356b;--rule:rgba(22,21,15,.28);--rule-soft:rgba(22,21,15,.14)}
@@ -93,6 +108,7 @@ function shell(title, desc, site, body, canonical) {
   </header>
 ${body}
 </main>
+${LOCALISE}
 </body>
 </html>`;
 }
@@ -195,7 +211,7 @@ export async function onRequestGet({ params, request, env }) {
           return `<article class="entry">
   <div class="entry-top">
     <span><span class="seq">#${String(e.seq).padStart(4, "0")}</span>${under}</span>
-    <a href="/r/${esc(e.id)}">${esc(when(e.t))}</a>
+    <a href="/r/${esc(e.id)}"><time datetime="${new Date(e.t * 1000).toISOString()}">${esc(when(e.t))}</time></a>
   </div>
   <p>${esc(e.m)}</p>
   <div class="counts">Signed by ${t.s} &middot; Objected by ${t.n}${queued}</div>
