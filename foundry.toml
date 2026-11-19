@@ -1,0 +1,24 @@
+[profile.default]
+src = "contracts"
+test = "test"
+script = "script"
+out = "out"
+
+# The lib directory in this repository holds the site's JavaScript, not
+# Solidity libraries, so Foundry is pointed away from it. Nothing here is
+# fetched: the contract and its tests stand on their own and `forge test`
+# works on a fresh clone with no install step.
+libs = []
+
+solc_version = "0.8.28"
+optimizer = true
+optimizer_runs = 1000
+via_ir = false
+
+[fmt]
+line_length = 100
+tab_width = 4
+bracket_spacing = false
+
+[rpc_endpoints]
+robinhood = "https://rpc.mainnet.chain.robinhood.com"

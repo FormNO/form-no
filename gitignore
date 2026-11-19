@@ -1,0 +1,9 @@
+node_modules/
+
+# Foundry build output
+out/
+cache/
+broadcast/
+
+.env
+.DS_Store
