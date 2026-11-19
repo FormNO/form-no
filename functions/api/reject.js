@@ -18,7 +18,12 @@ import { addFiling, isLive } from "../../lib/store.js";
  *   RATE
  */
 
-const ABI = ["function reject(string username, string message) external"];
+// The contract takes the moment the person filed rather than reading the
+// block, so a filing that waited in the queue still carries the time it was
+// written. Here the two are the same, but the argument is passed either way.
+const ABI = [
+  "function reject(string handle, string message, uint64 filedAt) external",
+];
 
 const DAILY_LIMIT = 1; // filings allowed per account per day
 
@@ -72,6 +77,7 @@ export async function onRequestPost({ request, env }) {
 
   // ---- write to the chain, when there is one ----
   let hash = null;
+  const filedAt = Math.floor(Date.now() / 1000);
 
   if (isLive(env)) {
     try {
@@ -93,7 +99,7 @@ export async function onRequestPost({ request, env }) {
         try {
           const nonce =
             (await provider.getTransactionCount(wallet.address, "pending")) + attempt;
-          tx = await contract.reject(username, message, { nonce });
+          tx = await contract.reject(username, message, filedAt, { nonce });
           break;
         } catch (err) {
           lastError = err;
@@ -117,6 +123,7 @@ export async function onRequestPost({ request, env }) {
     username,
     message,
     hash,
+    filedAt,
   });
 
   await env.RATE.put(dayKey, String(used + 1), { expirationTtl: 86400 });
