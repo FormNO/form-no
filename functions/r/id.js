@@ -71,6 +71,7 @@ blockquote::before{content:"\\201C"}blockquote::after{content:"\\201D"}
 .builton em{font-style:normal;font-size:10px;letter-spacing:.1em;text-transform:uppercase;opacity:.5}
 .builton a{display:block;line-height:0}
 .builton img{display:block;height:12px;width:auto}
+.launchline{margin:7px 0 0;text-align:center;font-size:10.5px;opacity:.45;line-height:1.5}
 `;
 
 function notFound() {
@@ -155,7 +156,8 @@ export async function onRequestGet({ params, env }) {
 
   <p class="note">Filings are written to Robinhood Chain as event logs, where they cannot be edited or removed. This one was written by a visitor signed in with X. This project did not write it, does not endorse it, and takes no responsibility for its content. <a href="/">Form N-O</a></p>
 
-  <p class="builton"><em>Built on</em><a href="https://chain.robinhood.com" target="_blank" rel="noopener"><img src="/rh-chain.svg" alt="Robinhood Chain" width="91" height="12"></a></p>
+  <p class="builton"><em>Built on</em><a href="https://docs.robinhood.com/chain/" target="_blank" rel="noopener"><img src="/rh-chain.svg" alt="Robinhood Chain" width="91" height="12"></a></p>
+  <p class="launchline">A token will launch on vibe/vibe when it reaches mainnet.</p>
 </main>
 ${LOCALISE}
 </body>
