@@ -8,7 +8,7 @@ import { addFiling, isLive } from "../../lib/store.js";
  * so nobody can file under someone else's name.
  *
  * The filing is recorded immediately. If the contract is live it also goes to
- * Base in the same request; if it is not, it waits in the queue and is written
+ * Robinhood Chain in the same request; if not, it waits in the queue and is written
  * when the wall opens. Either way the person's place in the order is fixed the
  * moment they file.
  *
@@ -77,8 +77,8 @@ export async function onRequestPost({ request, env }) {
     try {
       const { ethers } = await import("ethers");
       const provider = new ethers.JsonRpcProvider(
-        env.RPC_URL || "https://mainnet.base.org",
-        8453,
+        env.RPC_URL || "https://rpc.mainnet.chain.robinhood.com",
+        4663,
         { staticNetwork: true }
       );
       const wallet = new ethers.Wallet(env.RELAYER_KEY, provider);

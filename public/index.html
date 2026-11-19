@@ -5,9 +5,9 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <meta name="color-scheme" content="light only">
 <title>Form N-O — Rejection Wall</title>
-<meta name="description" content="What do you refuse today? Write it and it goes on Base for good.">
+<meta name="description" content="What do you refuse today? Write it and it goes on Robinhood Chain for good.">
 <meta property="og:title" content="Form N-O — Rejection Wall">
-<meta property="og:description" content="What do you refuse today? Write it and it goes on Base for good.">
+<meta property="og:description" content="What do you refuse today? Write it and it goes on Robinhood Chain for good.">
 <meta property="og:image" content="/share.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:site" content="@FormNO_">
@@ -164,9 +164,9 @@ button:disabled{cursor:not-allowed;opacity:.42}
 <main class="sheet">
 
   <header class="masthead">
-    <div class="file-no"><span>Base Mainnet · Form N-O</span></div>
+    <div class="file-no"><span>Robinhood Chain · Form N-O</span></div>
     <div class="mark"><span>NO</span></div>
-    <p class="tagline">Write what you refuse. It goes on Base under your name and stays there. No wallet, no new account, no edits.</p>
+    <p class="tagline">Write what you refuse. It goes on Robinhood Chain under your name and stays there. No wallet, no new account, no edits.</p>
     <div class="counter"><b id="total">—</b><em id="totalLabel">rejections filed to date</em></div>
   </header>
 
@@ -191,8 +191,8 @@ button:disabled{cursor:not-allowed;opacity:.42}
   <div class="how">
     <b>How this works</b>
     <p>You sign in with the X account you already have — no new account, no wallet, no password here. Your handle is what appears on the wall, so nobody can file under your name.</p>
-    <p>Writing to a blockchain costs a fee. You do not pay it; the project signs each filing and covers the fee on Base.</p>
-    <p>Filings go to Base in the order they were made. While the chain is still opening, yours is queued and keeps its number; once it is written, it is a permanent public record that nobody can edit or delete, including us.</p>
+    <p>Writing to a blockchain costs a fee. You do not pay it; the project signs each filing and covers the fee on Robinhood Chain.</p>
+    <p>Filings go to Robinhood Chain in the order they were made. While the chain is still opening, yours is queued and keeps its number; once it is written, it is a permanent public record that nobody can edit or delete, including us.</p>
     <p>One filing per account per day. Signing and objecting are not limited.</p>
     <p>We keep your handle, your X account number and the link to your avatar. Nothing else, and we never post for you.</p>
   </div>
@@ -213,12 +213,12 @@ button:disabled{cursor:not-allowed;opacity:.42}
   </div>
   <div id="wall"><div class="loading">Reading the chain…</div></div>
 
-  <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed; one marked queued is on its way. Messages are written by visitors signed in with X. This project did not write them, does not endorse them, and takes no responsibility for their content. Signatures are counted off-chain, one per account per filing. <span id="contractWrap"><a id="contractLink" href="#" target="_blank" rel="noopener">View contract</a> · </span><a href="https://x.com/formno_" target="_blank" rel="noopener">@FormNO_</a></p>
+  <p class="note">Filings are written to Robinhood Chain as event logs, where they cannot be edited or removed; one marked queued is on its way. Messages are written by visitors signed in with X. This project did not write them, does not endorse them, and takes no responsibility for their content. Signatures are counted off-chain, one per account per filing. <span id="contractWrap"><a id="contractLink" href="#" target="_blank" rel="noopener">View contract</a> · </span><a href="https://x.com/formno_" target="_blank" rel="noopener">@FormNO_</a></p>
 
 </main>
 
 <script>
-const EXPLORER = "https://basescan.org";
+const EXPLORER = "https://robinhoodchain.blockscout.com";
 const SITE = location.origin;
 
 const $ = function(id){ return document.getElementById(id); };
@@ -251,7 +251,7 @@ $("today").textContent = new Date().toLocaleDateString("en-GB",
   { weekday:"long", day:"numeric", month:"long" });
 
 /* ---------- share links ---------- */
-const PITCH = "Say no, on the record. Every rejection is written to Base and cannot be deleted.";
+const PITCH = "Say no, on the record. Every rejection is written to Robinhood Chain and cannot be deleted.";
 
 $("shareX").href  = "https://twitter.com/intent/tweet?text=" +
   encodeURIComponent(PITCH) + "&url=" + encodeURIComponent(SITE);
@@ -275,7 +275,7 @@ function paintAccount(){
     els.account.innerHTML =
       (live ? '' :
         '<div class="pending"><b>The chain opens soon</b>' +
-        'File now and your place in the order is kept. Everything on the wall goes to Base, oldest first, the day it opens.</div>') +
+        'File now and your place in the order is kept. Everything on the wall goes to Robinhood Chain, oldest first, the day it opens.</div>') +
       '<div class="who-row">' +
         '<span class="as">' +
           (avatar ? '<img src="' + esc(avatar) + '" alt="" width="26" height="26">' : '') +
@@ -293,7 +293,7 @@ function paintAccount(){
     els.account.innerHTML =
       (live ? '' :
         '<div class="pending"><b>The chain opens soon</b>' +
-        'File now and your place in the order is kept. Everything on the wall goes to Base, oldest first, the day it opens.</div>') +
+        'File now and your place in the order is kept. Everything on the wall goes to Robinhood Chain, oldest first, the day it opens.</div>') +
       '<a class="signin" href="/api/auth/start">Sign in with X to file</a>' +
       '<p class="signin-note">Your handle goes on the wall. We read it once at sign-in and never post anything on your behalf.</p>';
     els.answerField.hidden = true;

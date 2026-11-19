@@ -103,7 +103,7 @@ function shell(title, desc, site, body, canonical) {
 <body>
 <main class="sheet">
   <header class="masthead">
-    <div class="file-no">Base Mainnet &middot; Form N-O</div>
+    <div class="file-no">Robinhood Chain &middot; Form N-O</div>
     <div class="mark"><span>NO</span></div>
   </header>
 ${body}
@@ -242,7 +242,7 @@ export async function onRequestGet({ params, request, env }) {
   <h2>Filed</h2>
   ${list}
 
-  <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed. The handle comes from the X account that signed in, and each message keeps the handle it was written under. This project did not write these messages, does not endorse them, and takes no responsibility for their content. <a href="/">Form N-O</a></p>`;
+  <p class="note">Filings are written to Robinhood Chain as event logs, where they cannot be edited or removed. The handle comes from the X account that signed in, and each message keeps the handle it was written under. This project did not write these messages, does not endorse them, and takes no responsibility for their content. <a href="/">Form N-O</a></p>`;
 
   const desc = visible.length
     ? `${visible.length} filed on Form N-O. Latest: ${visible[0].m}`

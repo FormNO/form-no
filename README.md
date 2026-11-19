@@ -1,6 +1,6 @@
 # Form N-O — Rejection Wall
 
-A wall where people write what they refuse. Filings are written to Base as
+A wall where people write what they refuse. Filings are written to Robinhood Chain as
 event logs, where they cannot be edited or removed.
 
 Visitors sign in with the X account they already have — no wallet, no new
@@ -13,7 +13,7 @@ with its number and its place in the order. The site says plainly that the
 queue is waiting for the chain.
 
 **Phase two, the chain is live.** You deploy the contract, set two more
-variables, and run the publisher once. Everything already filed goes to Base in
+variables, and run the publisher once. Everything already filed goes to Robinhood Chain in
 the order it was filed, so the first person to write really is #0001. From then
 on each new filing goes straight to the chain as it is made.
 
@@ -28,9 +28,9 @@ lib/session.js             signed session cookie, no storage needed
 lib/store.js               the filing store
 functions/api/auth/*       sign in with X (OAuth 2.0 + PKCE)
 functions/api/wall         serves the wall
-functions/api/reject       records a filing, and writes it to Base when live
+functions/api/reject       records a filing, and writes it to Robinhood Chain when live
 functions/api/vote         signature and objection counter
-functions/api/publish      writes queued filings to Base, oldest first
+functions/api/publish      writes queued filings to Robinhood Chain, oldest first
 functions/r/[id]           a page of its own for each filing
 functions/u/[handle]       everything one account has filed
 contracts/NoWall.sol       the contract
@@ -149,8 +149,8 @@ Do this when there is enough on the wall to be worth paying for.
 
 In MetaMask create **two new accounts**, used only for this project.
 
-The first deploys the contract. Send it about $3 of ETH **on the Base network**
-— when withdrawing from an exchange, select Base, not Ethereum.
+The first deploys the contract. Send it about $3 of ETH **on Robinhood Chain**
+— when withdrawing from an exchange, select Robinhood Chain, not Ethereum.
 
 The second is the relayer. Send it about $20. Its private key goes into
 Cloudflare, so it must hold nothing else. A filing costs roughly one to three
@@ -164,7 +164,7 @@ On a desktop browser with MetaMask installed:
 2. Create `NoWall.sol` and paste in `contracts/NoWall.sol`.
 3. Solidity Compiler → version 0.8.20 or newer → Compile.
 4. Deploy & Run → Environment: **Injected Provider - MetaMask**.
-5. Confirm it shows Custom (8453) and the **first** account from step 8.
+5. Confirm it shows Custom (4663) and the **first** account from step 8.
 6. Contract: `NoWall` → Deploy → confirm.
 
 Copy the deployed address.
@@ -175,7 +175,7 @@ Settings → Variables and secrets. Add as **plain text**:
 
 ```
 CONTRACT = 0x...                        from step 9
-RPC_URL  = https://mainnet.base.org
+RPC_URL  = https://rpc.mainnet.chain.robinhood.com
 ```
 
 And as **Secret**:
@@ -186,7 +186,7 @@ RELAYER_KEY = the second wallet's private key
 
 Never paste that key anywhere else. A Secret cannot be read back.
 
-Redeploy. New filings now go to Base as they are made.
+Redeploy. New filings now go to Robinhood Chain as they are made.
 
 ## Step 11 — Send the queue up
 
@@ -203,7 +203,7 @@ The reply says how many were written and how many remain. Run it again until
 `remaining` is zero. Keep `limit` at five or so — each transaction takes a
 moment and a request has a time budget.
 
-Check one on Basescan, then reload the wall: the "queued" markers are gone and
+Check one on Blockscout, then reload the wall: the "queued" markers are gone and
 each filing links to its transaction.
 
 ---
@@ -212,7 +212,7 @@ each filing links to its transaction.
 
 **Hiding a filing.** Add its id — or its transaction hash — to the `hashes`
 array in `public/hidden.json` and commit. It disappears from the wall and its
-permalink returns 404. Once on Base the record is permanent; the site simply
+permalink returns 404. Once on Robinhood Chain the record is permanent; the site simply
 stops showing it. This is the only moderation lever.
 
 ```json

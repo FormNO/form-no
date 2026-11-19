@@ -3,7 +3,7 @@ import { readFilings, writeFilings, isLive } from "../../lib/store.js";
 /**
  * POST /api/publish   { key, limit }
  *
- * Writes filings that are still waiting to Base, oldest first, so the order
+ * Writes filings that are still waiting to Robinhood Chain, oldest first, so the order
  * people filed in is the order they go on chain. Run it once the contract is
  * deployed; call it again until nothing is left.
  *
@@ -46,8 +46,8 @@ export async function onRequestPost({ request, env }) {
 
   const { ethers } = await import("ethers");
   const provider = new ethers.JsonRpcProvider(
-    env.RPC_URL || "https://mainnet.base.org",
-    8453,
+    env.RPC_URL || "https://rpc.mainnet.chain.robinhood.com",
+    4663,
     { staticNetwork: true }
   );
   const wallet = new ethers.Wallet(env.RELAYER_KEY, provider);

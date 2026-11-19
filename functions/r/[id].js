@@ -102,10 +102,10 @@ export async function onRequestGet({ params, env }) {
   const chainRow = entry.h
     ? `<div class="links">
       <a class="primary" href="/">File yours</a>
-      <a href="https://basescan.org/tx/${esc(entry.h)}" target="_blank" rel="noopener">View on Base</a>
+      <a href="https://robinhoodchain.blockscout.com/tx/${esc(entry.h)}" target="_blank" rel="noopener">View the transaction</a>
       <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}" target="_blank" rel="noopener">Share on X</a>
     </div>`
-    : `<div class="queued"><b>Waiting for the chain.</b> This filing is in the queue. It goes on Base, in the order it was filed, when the wall opens${isLive(env) ? " — the next batch is on its way" : ""}.</div>
+    : `<div class="queued"><b>Waiting for the chain.</b> This filing is in the queue. It goes on Robinhood Chain, in the order it was filed, when the wall opens${isLive(env) ? " — the next batch is on its way" : ""}.</div>
     <div class="links">
       <a class="primary" href="/">File yours</a>
       <a href="https://twitter.com/intent/tweet?text=${encodeURIComponent(shareText)}&url=${encodeURIComponent(url)}" target="_blank" rel="noopener">Share on X</a>
@@ -135,7 +135,7 @@ export async function onRequestGet({ params, env }) {
 <body>
 <main class="sheet">
   <header class="masthead">
-    <div class="file-no">Base Mainnet &middot; Form N-O</div>
+    <div class="file-no">Robinhood Chain &middot; Form N-O</div>
     <div class="mark"><span>NO</span></div>
   </header>
 
@@ -149,7 +149,7 @@ export async function onRequestGet({ params, env }) {
     ${chainRow}
   </section>
 
-  <p class="note">Filings are written to Base as event logs, where they cannot be edited or removed. This one was written by a visitor signed in with X. This project did not write it, does not endorse it, and takes no responsibility for its content. <a href="/">Form N-O</a></p>
+  <p class="note">Filings are written to Robinhood Chain as event logs, where they cannot be edited or removed. This one was written by a visitor signed in with X. This project did not write it, does not endorse it, and takes no responsibility for its content. <a href="/">Form N-O</a></p>
 </main>
 ${LOCALISE}
 </body>

@@ -13,7 +13,7 @@ import {
  * marks, and who they are signed in as.
  *
  * The browser never talks to the chain. Filings are served from the store,
- * each carrying its transaction hash once it has been written to Base.
+ * each carrying its transaction hash once it has been written to Robinhood Chain.
  */
 
 const json = (data) =>
